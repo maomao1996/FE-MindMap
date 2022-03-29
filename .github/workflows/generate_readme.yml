@@ -1,0 +1,42 @@
+name: Generate Readme
+
+on:
+  push:
+    branches:
+      - main
+    # 只在文件变更时触发
+    paths:
+      - '**.xmind'
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.15.1
+
+      - name: Set node version to 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'pnpm'
+
+      - name: Run Script
+        run: pnpm install && pnpm build && pnpm prettier
+
+      - name: Push
+        uses: github-actions-x/commit@v2.7
+        with:
+          github-token: ${{ secrets.ACCESS_TOKEN }}
+          push-branch: main
+          commit-message: 'Update README.md by Github Actions'
+          name: github-actions[bot]
+          email: 41898282+github-actions[bot]@users.noreply.github.com

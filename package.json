@@ -1,0 +1,26 @@
+{
+  "name": "fe-mindmap",
+  "version": "1.0.0",
+  "private": true,
+  "description": "前端知识图谱（用思维导图的方式总结个人所学知识）",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/generateReadme.js",
+    "prettier": "prettier --write \"README.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maomao1996/FE-MindMap.git"
+  },
+  "author": "maomao1996 <1714487678@qq.com>",
+  "bugs": {
+    "url": "https://github.com/maomao1996/FE-MindMap/issues"
+  },
+  "homepage": "https://github.com/maomao1996/FE-MindMap#readme",
+  "devDependencies": {
+    "execa": "^6.1.0",
+    "fs-extra": "^10.0.1",
+    "lodash-es": "^4.17.21",
+    "prettier": "^2.6.1"
+  }
+}
