@@ -56,10 +56,7 @@ function generateList(list) {
   )
     .map(
       (item) =>
-        `- [x] ${item.updateTime} —— [${item.name}](/${item.path.replace(
-          /\s/g,
-          ''
-        )})`
+        `- [x] ${item.updateTime} —— [${item.name}](/${encodeURI(item.path)})`
     )
     .join('\n')
 }
