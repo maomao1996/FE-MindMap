@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import fs from 'fs-extra'
 import { execa } from 'execa'
-import { sortBy } from 'lodash-es'
+import { orderBy } from 'lodash-es'
 
 const MD_HEADER = `# FE-MindMap
 
@@ -24,13 +24,14 @@ function getDirectoryInfo() {
             'log',
             '--pretty=format:%ad',
             '--date=short',
-            -1,
             name
           ]).then((res) => {
+            const time = res.stdout.split('\n')
             return {
               name: name.replace('.xmind', ''),
               path: filePath,
-              updateTime: res.stdout
+              updateTime: time.at(0),
+              createdTime: time.at(-1)
             }
           })
         )
@@ -50,13 +51,17 @@ function generateList(list) {
   if (!list.length) {
     return ''
   }
-  return sortBy(
+
+  return orderBy(
     list.filter((item) => item.updateTime),
-    (item) => item.updateTime
+    ['updateTime'],
+    ['desc']
   )
     .map(
       (item) =>
-        `- [x] ${item.updateTime} —— [${item.name}](/${encodeURI(item.path)})`
+        `- [x] [${item.name}](/${item.path.replace(/\s/g, '')})
+  - 创建时间: ${item.createdTime}
+  - 更新时间: ${item.updateTime}`
     )
     .join('\n')
 }
