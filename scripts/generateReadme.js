@@ -10,7 +10,7 @@ const MD_HEADER = `# FE-MindMap
 `
 const MD_FOOTER = `\n`
 
-function getDirectoryInfo() {
+function getDirectoryInfo(basePath = '') {
   const result = []
 
   function finder(path) {
@@ -24,7 +24,7 @@ function getDirectoryInfo() {
             'log',
             '--pretty=format:%ad',
             '--date=short',
-            name
+            filePath
           ]).then((res) => {
             const time = res.stdout.split('\n')
             return {
@@ -39,7 +39,7 @@ function getDirectoryInfo() {
     })
   }
 
-  const path = join('./')
+  const path = join('./', basePath)
   if (fs.existsSync(path)) {
     finder(path)
   }
@@ -59,7 +59,7 @@ function generateList(list) {
   )
     .map(
       (item) =>
-        `- [x] [${item.name}](/${item.path.replace(/\s/g, '')})
+        `- [x] [${item.name}](/${encodeURI(item.path)})
   - 创建时间: ${item.createdTime}
   - 更新时间: ${item.updateTime}`
     )
@@ -71,7 +71,7 @@ try {
   let md = MD_HEADER
 
   // 组装列表数据
-  const result = await Promise.all(getDirectoryInfo())
+  const result = await Promise.all(getDirectoryInfo('xmind'))
   md += generateList(result)
 
   // 组装 MD 尾部
