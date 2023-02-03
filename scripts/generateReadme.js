@@ -59,7 +59,11 @@ function generateList(list) {
   )
     .map(
       (item) =>
-        `- [x] [${item.name}](/${encodeURI(item.path)})
+        `- [x] [${
+          item.name
+        } <img alt="" height="16" src="https://img.shields.io/github/size/maomao1996/FE-MindMap/${encodeURI(
+          item.path
+        )}" align="center" />](/${encodeURI(item.path)})
   - 创建时间: ${item.createdTime}
   - 更新时间: ${item.updateTime}`
     )
