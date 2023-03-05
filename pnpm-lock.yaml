@@ -1,18 +1,24 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
+  '@femm/prettier': ^1.0.1
   execa: ^6.1.0
   fs-extra: ^10.0.1
   lodash-es: ^4.17.21
   prettier: ^2.6.1
 
 devDependencies:
+  '@femm/prettier': 1.0.1
   execa: 6.1.0
   fs-extra: 10.0.1
   lodash-es: 4.17.21
   prettier: 2.6.1
 
 packages:
+
+  /@femm/prettier/1.0.1:
+    resolution: {integrity: sha512-i/Hs3nYhOWaI7Ra0nCoCVSEIrbg1EfibnzBPR1M8G8OyYK4VMIhyjJMDs00qEaqHHYnqssYhve7MZCK4oPVTnw==}
+    dev: true
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}

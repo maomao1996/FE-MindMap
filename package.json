@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/maomao1996/FE-MindMap#readme",
   "devDependencies": {
+    "@femm/prettier": "^1.0.1",
     "execa": "^6.1.0",
     "fs-extra": "^10.0.1",
     "lodash-es": "^4.17.21",
     "prettier": "^2.6.1"
-  }
+  },
+  "prettier": "@femm/prettier"
 }
