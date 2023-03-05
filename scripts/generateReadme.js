@@ -1,6 +1,7 @@
 import { join } from 'node:path'
 import fs from 'fs-extra'
 import { execa } from 'execa'
+import { globbySync } from 'globby'
 import { orderBy } from 'lodash-es'
 
 const MD_HEADER = `# FE-MindMap
@@ -10,41 +11,20 @@ const MD_HEADER = `# FE-MindMap
 `
 const MD_FOOTER = `\n`
 
-function getDirectoryInfo(basePath = '') {
-  const result = []
-
-  function finder(path) {
-    const directory = fs.readdirSync(path)
-    directory.forEach((name) => {
-      const filePath = join(path, name)
-      const fileStats = fs.statSync(filePath)
-      if (fileStats.isFile() && name.endsWith('.xmind')) {
-        result.push(
-          execa('git', [
-            'log',
-            '--pretty=format:%ad',
-            '--date=short',
-            filePath
-          ]).then((res) => {
-            const time = res.stdout.split('\n')
-            return {
-              name: name.replace('.xmind', ''),
-              path: filePath,
-              updateTime: time.at(0),
-              createdTime: time.at(-1)
-            }
-          })
-        )
+function getXmindList(directory = '') {
+  return globbySync(`${directory}/**/*.(xmind)`, {
+    objectMode: true
+  }).map(({ name, path }) =>
+    execa('git', ['log', '--pretty=format:%ad', '--date=short', path]).then((res) => {
+      const time = res.stdout.split('\n')
+      return {
+        name: name.replace('.xmind', ''),
+        path,
+        updateTime: time.at(0),
+        createdTime: time.at(-1)
       }
     })
-  }
-
-  const path = join('./', basePath)
-  if (fs.existsSync(path)) {
-    finder(path)
-  }
-
-  return result
+  )
 }
 
 function generateList(list) {
@@ -75,7 +55,7 @@ try {
   let md = MD_HEADER
 
   // 组装列表数据
-  const result = await Promise.all(getDirectoryInfo('xmind'))
+  const result = await Promise.all(getXmindList('xmind'))
   md += generateList(result)
 
   // 组装 MD 尾部
