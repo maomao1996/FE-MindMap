@@ -6,6 +6,7 @@ import MMControl from './components/MMControl.vue'
 import data from '../public/xmind.json'
 
 const viewer = ref<XMindEmbedViewer>()
+const PROD = import.meta.env.PROD
 
 onMounted(async () => {
   const res = await fetch(data[0].path)
@@ -28,7 +29,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1 class="title">FE-MindMap</h1>
+  <h1 class="title">
+    FE-MindMap
+    <img
+      v-if="PROD"
+      class="visitor"
+      src="https://visitor-badge.laobi.icu/badge?page_id=maomao1996.fe-mindmap"
+      onerror="this.style.display='none'"
+    />
+  </h1>
   <nav class="nav">
     <a href="https://fe-mm.com" target="_blank" rel="noreferrer">茂茂</a>
     <a href="https://github.com/maomao1996/FE-MindMap" target="_blank" rel="noreferrer">GitHub</a>
