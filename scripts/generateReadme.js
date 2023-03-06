@@ -8,6 +8,15 @@ const MD_HEADER = `# FE-MindMap
 
 前端知识图谱（用思维导图的方式总结个人所学知识）
 
+## 预览地址
+
+- <https://xmind.fe-mm.com>
+- <https://xmind.netlify.app>
+- <https://femindmap.vercel.app>
+- <https://fe-xmind.vercel.app>
+
+## 目录
+
 `
 const MD_FOOTER = `\n`
 
