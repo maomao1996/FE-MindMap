@@ -15,22 +15,37 @@ a {
   position: fixed;
   top: 14px;
   left: 50%;
+  line-height: 36px;
   transform: translateX(-50%);
   backdrop-filter: blur(4px);
 }
 
 .visitor {
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
 .nav {
   position: fixed;
   right: 14px;
   top: 14px;
+  margin: 10px 0;
   font-size: 14px;
-  line-height: 36px;
+  line-height: 16px;
   color: #666;
+  backdrop-filter: blur(4px);
   a + a {
-    margin-left: 8px;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.4em;
+  }
+  .visitor {
+    display: none;
+  }
+  .nav {
+    font-size: 12px;
   }
 }
