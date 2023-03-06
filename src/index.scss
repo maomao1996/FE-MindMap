@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.title {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  backdrop-filter: blur(4px);
+}
+
+.nav {
+  position: fixed;
+  right: 14px;
+  top: 14px;
+  font-size: 14px;
+  line-height: 36px;
+  color: #666;
+  a + a {
+    margin-left: 8px;
+  }
+}
