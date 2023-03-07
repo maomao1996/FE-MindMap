@@ -1,4 +1,3 @@
-import { join } from 'node:path'
 import fs from 'fs-extra'
 import { execa } from 'execa'
 import { globbySync } from 'globby'
@@ -6,7 +5,7 @@ import { orderBy } from 'lodash-es'
 
 const MD_HEADER = `# FE-MindMap
 
-前端知识图谱（用思维导图的方式总结个人所学知识）
+茂茂的前端知识图谱（用思维导图的方式总结个人所学知识），如有引用请标注原作者
 
 ## 预览地址
 
