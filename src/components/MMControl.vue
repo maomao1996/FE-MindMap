@@ -5,16 +5,43 @@ import MMDropdownMenu from './MMDropdownMenu.vue'
 
 const props = defineProps<{ viewer: XMindEmbedViewer }>()
 
+const selectFileFromLocal = async (accept: string) => {
+  const fileSelector = document.createElement('input')
+  fileSelector.style.display = 'none'
+  document.body.appendChild(fileSelector)
+  await new Promise<void>((resolve) => {
+    fileSelector.setAttribute('type', 'file')
+    fileSelector.setAttribute('accept', accept)
+    fileSelector.addEventListener('change', () => {
+      resolve()
+    })
+    fileSelector.click()
+  }).finally(() => {
+    document.body.removeChild(fileSelector)
+  })
+  if (!fileSelector.files || !fileSelector.files.length) {
+    return
+  }
+  return fileSelector.files[0]
+}
+
 const handleLoadFile = (filePath: string) => {
   fetch(filePath).then(async (res) => {
     props.viewer.load(await res.arrayBuffer())
   })
+}
+
+const handleOpenLocalFile = async () => {
+  const file = await selectFileFromLocal('.xmind')
+  if (!file) return
+  props.viewer.load(await file.arrayBuffer())
 }
 </script>
 
 <template>
   <div class="control">
     <MMDropdownMenu @click="handleLoadFile" />
+    <button class="btn" @click="handleOpenLocalFile">打开本地文件</button>
   </div>
 </template>
 
@@ -46,6 +73,9 @@ const handleLoadFile = (filePath: string) => {
     cursor: pointer;
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
+    }
+    & ~ .btn {
+      margin-left: 12px;
     }
     &-icon {
       margin-left: 4px;

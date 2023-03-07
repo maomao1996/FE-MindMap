@@ -20,8 +20,8 @@ onMounted(async () => {
   })
 
   instance.addEventListener('map-ready', () => {
-    // instance.setZoomScale(50)
-    instance.setFitMap()
+    instance.setZoomScale(50)
+    // instance.setFitMap()
   })
 
   viewer.value = instance
